@@ -1,0 +1,105 @@
+[gd_scene load_steps=3 format=3 uid="uid://n56b3q2dpfjw"]
+
+[ext_resource type="Theme" uid="uid://cymbtmi8h011n" path="res://themes/menu_theme.tres" id="1_iy2go"]
+[ext_resource type="Script" path="res://save_and_load/save_select_screen.gd" id="2_exr2n"]
+
+[node name="save_select_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_iy2go")
+script = ExtResource("2_exr2n")
+
+[node name="texture" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -296.0
+offset_right = 296.0
+offset_bottom = 76.0
+grow_horizontal = 2
+text = "Select Save Slot"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 36
+
+[node name="save_1" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+
+[node name="save_2" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+
+[node name="save_3" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+
+[node name="name_save" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="name_save"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.301961, 0.301961, 0.301961, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="name_save"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="name_save/CenterContainer"]
+layout_mode = 2
+
+[node name="name_label" type="Label" parent="name_save/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Enter Name"
+
+[node name="save_name_edit" type="LineEdit" parent="name_save/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+max_length = 10
+
+[node name="enter_save_name_button" type="Button" parent="name_save/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Enter"
+
+[connection signal="pressed" from="CenterContainer/HBoxContainer/save_1" to="." method="_on_save_1_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/save_2" to="." method="_on_save_2_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/save_3" to="." method="_on_save_3_pressed"]
+[connection signal="text_submitted" from="name_save/CenterContainer/VBoxContainer/save_name_edit" to="." method="_on_save_name_edit_text_submitted"]
+[connection signal="pressed" from="name_save/CenterContainer/VBoxContainer/enter_save_name_button" to="." method="_on_enter_save_name_button_pressed"]

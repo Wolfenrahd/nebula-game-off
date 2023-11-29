@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cci1ofweim3lh"]
+
+[ext_resource type="Texture2D" uid="uid://v5tkwp5vdx4t" path="res://assets/art/planets/planet_128.png" id="1_3i8wu"]
+[ext_resource type="Script" path="res://locations/moon.gd" id="1_mq0nw"]
+[ext_resource type="Texture2D" uid="uid://dq480gck1q5wm" path="res://assets/art/planets/rough_terrain.png" id="3_a6dwa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kp65j"]
+radius = 64.4981
+
+[node name="Moon" type="Area2D"]
+script = ExtResource("1_mq0nw")
+
+[node name="Surface" type="Sprite2D" parent="."]
+self_modulate = Color(0.258824, 0.258824, 0.258824, 1)
+clip_children = 2
+texture = ExtResource("1_3i8wu")
+
+[node name="Terrain" type="Sprite2D" parent="Surface"]
+modulate = Color(0.301961, 0.301961, 0.301961, 1)
+texture = ExtResource("3_a6dwa")
+region_enabled = true
+region_rect = Rect2(0, 0, 512, 512)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_kp65j")

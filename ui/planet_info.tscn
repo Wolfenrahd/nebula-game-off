@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://h06c1d8e3omh"]
+
+[ext_resource type="Script" path="res://ui/planet_info.gd" id="1_i2yd4"]
+
+[node name="PlanetInfo" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_i2yd4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Planet"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Biome" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Biome"
+
+[node name="Atmosphere" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Atmosphere"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Units" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Units"
+
+[node name="Wealth" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "wealth"
+
+[node name="Materials" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "materials"
+
+[node name="Food" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "food"

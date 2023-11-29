@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0pb3527dipfn"]
+
+[ext_resource type="Texture2D" uid="uid://dbune0owbofu5" path="res://assets/art/items/moving_platform.png" id="1_5rbg5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8krak"]
+size = Vector2(32, 8)
+
+[sub_resource type="Animation" id="Animation_8w3mm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_l5onj"]
+resource_name = "path_follow"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sf61i"]
+_data = {
+"RESET": SubResource("Animation_8w3mm"),
+"path_follow": SubResource("Animation_l5onj")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_5qlta"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, -8, 0, 0, 0, 0, 0, -48, 0, 0, 0, 0, 40, -48, 0, 0, 0, 0, 40, 32, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, -8)
+}
+point_count = 6
+
+[node name="moving_platform" type="Node2D"]
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D"]
+texture = ExtResource("1_5rbg5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+shape = SubResource("RectangleShape2D_8krak")
+one_way_collision = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "path_follow"
+libraries = {
+"": SubResource("AnimationLibrary_sf61i")
+}
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_5qlta")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(0, -8)
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D"]
+remote_path = NodePath("../../../AnimatableBody2D")

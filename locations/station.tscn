@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtrxy4cg82kof"]
+
+[ext_resource type="Texture2D" uid="uid://v5tkwp5vdx4t" path="res://assets/art/planets/planet_128.png" id="1_i26rg"]
+[ext_resource type="Script" path="res://locations/station.gd" id="1_n83fl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j3oom"]
+radius = 64.4981
+
+[node name="Station" type="Area2D"]
+modulate = Color(1, 0, 0.992157, 1)
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("1_n83fl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_i26rg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_j3oom")

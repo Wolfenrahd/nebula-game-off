@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://3xnwhv20phk6"]
+
+[ext_resource type="Theme" uid="uid://cymbtmi8h011n" path="res://themes/menu_theme.tres" id="1_8nx1o"]
+[ext_resource type="Script" path="res://menus/new_version_screen.gd" id="2_jltg0"]
+
+[node name="new_version_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8nx1o")
+script = ExtResource("2_jltg0")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="warning" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "I'm sorry.
+The bersion of your save is newer than
+this version of the game. Please update
+your game and restart. Thank you!"
+horizontal_alignment = 1
+
+[node name="exit_button" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit Game"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/exit_button" to="." method="_on_exit_button_pressed"]

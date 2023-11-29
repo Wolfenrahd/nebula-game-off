@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://ha6bgjgruhlu"]
+
+[ext_resource type="Script" path="res://ui/health_meter.gd" id="1_tjct0"]
+
+[node name="health_meter" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_tjct0")
+
+[node name="empty" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 21.0
+offset_bottom = 12.0
+stretch_mode = 1
+
+[node name="full" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 6.0
+offset_bottom = 12.0
+expand_mode = 1
+stretch_mode = 1

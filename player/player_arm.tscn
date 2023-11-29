@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bebqtpoeya421"]
+
+[ext_resource type="Script" path="res://player/player_arm.gd" id="1_cjlnx"]
+[ext_resource type="Texture2D" uid="uid://dgblrim16a5xy" path="res://assets/art/characters/player_arm.png" id="1_jqs2e"]
+
+[node name="player_arm" type="Node2D"]
+script = ExtResource("1_cjlnx")
+
+[node name="blaster_sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_jqs2e")
+offset = Vector2(4, 0)
+
+[node name="muzzle" type="Marker2D" parent="blaster_sprite"]
+position = Vector2(9, 0)
+
+[node name="fire_rate_timer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true

@@ -1,0 +1,220 @@
+[gd_scene load_steps=13 format=3 uid="uid://d1sbjanbsqw8h"]
+
+[ext_resource type="Script" path="res://levels/space.gd" id="1_yt2io"]
+[ext_resource type="Script" path="res://levels/main_cam.gd" id="2_cmdpx"]
+[ext_resource type="PackedScene" uid="uid://cbs0u0ietip53" path="res://player/player_ship.tscn" id="2_en7bj"]
+[ext_resource type="Theme" uid="uid://bhxfftbxevyph" path="res://themes/space_theme.tres" id="2_wrqy0"]
+[ext_resource type="PackedScene" uid="uid://h06c1d8e3omh" path="res://ui/planet_info.tscn" id="3_eqbis"]
+[ext_resource type="PackedScene" uid="uid://bmni55hjwmmau" path="res://characters/ship_ai.tscn" id="5_0r0tx"]
+[ext_resource type="PackedScene" uid="uid://c74l5yor8r0so" path="res://locations/sun.tscn" id="8_s3yr6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_044h5"]
+font_size = 32
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jxf22"]
+emission_shape = 3
+emission_box_extents = Vector3(2880, 1620, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -5.0
+initial_velocity_max = 5.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lfgev"]
+emission_shape = 3
+emission_box_extents = Vector3(2880, 1620, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -10.0
+initial_velocity_max = 10.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 3.0
+scale_max = 3.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_42qy8"]
+emission_shape = 3
+emission_box_extents = Vector3(2880, 1620, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -20.0
+initial_velocity_max = 20.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 3.0
+scale_max = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eno8k"]
+radius = 2000.0
+
+[node name="space" type="Node2D"]
+script = ExtResource("1_yt2io")
+world_radius = 5000
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -31.5
+offset_top = 48.0
+offset_right = 31.5
+offset_bottom = 100.0
+grow_horizontal = 2
+text = "M - Map
+F - Land"
+label_settings = SubResource("LabelSettings_044h5")
+
+[node name="GenerationMessage" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/GenerationMessage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -13.0
+offset_right = 43.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Generating"
+
+[node name="StarMap" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_wrqy0")
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/StarMap"]
+layout_mode = 2
+columns = 8
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/StarMap"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/StarMap/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Name" type="Label" parent="CanvasLayer/StarMap/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Place"
+
+[node name="PlanetCount" type="Label" parent="CanvasLayer/StarMap/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Planets: "
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/StarMap/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Planets" type="VBoxContainer" parent="CanvasLayer/StarMap/PanelContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Travel" type="Button" parent="CanvasLayer/StarMap/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Travel"
+
+[node name="PlanetInfo" parent="CanvasLayer" instance=ExtResource("3_eqbis")]
+visible = false
+offset_right = 96.0
+offset_bottom = 214.0
+theme = ExtResource("2_wrqy0")
+
+[node name="main_cam" type="Camera2D" parent="."]
+position = Vector2(160, 90)
+zoom = Vector2(0.5, 0.5)
+process_callback = 0
+script = ExtResource("2_cmdpx")
+
+[node name="Timer" type="Timer" parent="main_cam"]
+one_shot = true
+
+[node name="fade_screen" type="ColorRect" parent="main_cam"]
+offset_left = -2376.0
+offset_top = -1330.0
+offset_right = 2184.0
+offset_bottom = 1310.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 1)
+
+[node name="background_stars" type="Node2D" parent="main_cam"]
+
+[node name="stars_far" type="GPUParticles2D" parent="main_cam/background_stars"]
+z_index = -100
+amount = 4000
+process_material = SubResource("ParticleProcessMaterial_jxf22")
+lifetime = 5.0
+preprocess = 200.0
+
+[node name="stars_middle" type="GPUParticles2D" parent="main_cam/background_stars"]
+z_index = -95
+amount = 1000
+process_material = SubResource("ParticleProcessMaterial_lfgev")
+lifetime = 5.0
+preprocess = 200.0
+
+[node name="stars_close" type="GPUParticles2D" parent="main_cam/background_stars"]
+z_index = -95
+amount = 250
+process_material = SubResource("ParticleProcessMaterial_42qy8")
+lifetime = 5.0
+preprocess = 200.0
+
+[node name="Border" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border"]
+shape = SubResource("CircleShape2D_eno8k")
+
+[node name="Line2D" type="Line2D" parent="Border"]
+default_color = Color(1, 1, 1, 0.196078)
+
+[node name="Sun" parent="." instance=ExtResource("8_s3yr6")]
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="Characters" type="Node2D" parent="."]
+
+[node name="player_ship" parent="Characters" instance=ExtResource("2_en7bj")]
+position = Vector2(-568, 24)
+
+[node name="ShipAI" parent="." instance=ExtResource("5_0r0tx")]
+position = Vector2(-792, 496)
+
+[node name="ShipAI2" parent="." instance=ExtResource("5_0r0tx")]
+position = Vector2(-664, 272)
+
+[node name="ShipAI3" parent="." instance=ExtResource("5_0r0tx")]
+modulate = Color(1, 0, 0.133333, 1)
+position = Vector2(-632, 544)
+
+[node name="ShipAI4" parent="." instance=ExtResource("5_0r0tx")]
+modulate = Color(1, 0, 0.133333, 1)
+position = Vector2(-816, 368)
+
+[node name="TickTimer" type="Timer" parent="."]
+
+[connection signal="pressed" from="CanvasLayer/StarMap/PanelContainer/VBoxContainer/Travel" to="." method="_on_travel_pressed"]
+[connection signal="timeout" from="main_cam/Timer" to="main_cam" method="_on_timer_timeout" flags=18]
+[connection signal="body_entered" from="Border" to="." method="_on_border_body_entered"]
+[connection signal="body_exited" from="Border" to="." method="_on_border_body_exited"]
+[connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]

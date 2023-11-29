@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3qdo7x4ugaqb"]
+
+[ext_resource type="Script" path="res://ui/planet_map_info.gd" id="1_vui8x"]
+
+[node name="PlanetMapInfo" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_vui8x")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+text = "Planet:"
+
+[node name="Biome" type="Label" parent="."]
+layout_mode = 2
+text = "Biome:"
+
+[node name="Atmosphere" type="Label" parent="."]
+layout_mode = 2
+text = "Atmosphere:"

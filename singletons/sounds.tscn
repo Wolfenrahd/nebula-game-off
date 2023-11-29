@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://ro6p1yg4i60h"]
+
+[ext_resource type="Script" path="res://singletons/sounds.gd" id="1_h2c52"]
+
+[node name="Sounds" type="Node"]
+process_mode = 3
+script = ExtResource("1_h2c52")
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="voice" type="AudioStreamPlayer" parent="."]
+bus = &"Voice"
+
+[node name="sfx" type="Node" parent="."]
+
+[node name="sfx1" type="AudioStreamPlayer" parent="sfx"]
+bus = &"SFX"
+
+[node name="sfx2" type="AudioStreamPlayer" parent="sfx"]
+bus = &"SFX"
+
+[node name="sfx3" type="AudioStreamPlayer" parent="sfx"]
+bus = &"SFX"
+
+[node name="sfx4" type="AudioStreamPlayer" parent="sfx"]
+bus = &"SFX"
+
+[node name="sfx5" type="AudioStreamPlayer" parent="sfx"]
+bus = &"SFX"
+
+[node name="sfx6" type="AudioStreamPlayer" parent="sfx"]
+bus = &"SFX"
+
+[node name="sfx7" type="AudioStreamPlayer" parent="sfx"]
+bus = &"SFX"
+
+[node name="sfx8" type="AudioStreamPlayer" parent="sfx"]
+bus = &"SFX"
+
+[node name="sfx9" type="AudioStreamPlayer" parent="sfx"]
+bus = &"SFX"
+
+[node name="sfx10" type="AudioStreamPlayer" parent="sfx"]
+bus = &"SFX"

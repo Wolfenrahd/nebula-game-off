@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1t0msehhfmh"]
+
+[ext_resource type="Texture2D" uid="uid://doxojjbkt7ev6" path="res://assets/art/menus/Animatedv2.png" id="1_14a6c"]
+[ext_resource type="Script" path="res://menus/neverknow_splash.gd" id="2_12677"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wbthm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dirxk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fyx7c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kgvbu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w34hf"]
+
+[node name="neverknow_splash" type="TextureRect"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_14a6c")
+expand_mode = 5
+script = ExtResource("2_12677")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="easter_egg_button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 738.0
+offset_top = 285.0
+offset_right = 1164.0
+offset_bottom = 663.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wbthm")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_dirxk")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_fyx7c")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kgvbu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_w34hf")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="easter_egg_button" to="." method="_on_easter_egg_button_pressed"]

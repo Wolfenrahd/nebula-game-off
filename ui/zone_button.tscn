@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3vh5q5jrq5ag"]
+
+[ext_resource type="Script" path="res://ui/zone_button.gd" id="1_1p27i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8ktf"]
+draw_center = false
+border_width_left = 40
+border_width_top = 40
+border_width_right = 40
+border_width_bottom = 40
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="ZoneButton" type="Button"]
+custom_minimum_size = Vector2(128, 128)
+offset_right = 128.0
+offset_bottom = 128.0
+text = "A1"
+script = ExtResource("1_1p27i")
+
+[node name="CurrentIndicator" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c8ktf")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

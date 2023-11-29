@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbs0u0ietip53"]
+
+[ext_resource type="PackedScene" uid="uid://d2gfvxb856pha" path="res://characters/ship.tscn" id="1_esjhi"]
+[ext_resource type="Script" path="res://player/player_ship.gd" id="1_h6xfn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dqtg0"]
+radius = 48.0
+
+[node name="PlayerShip" instance=ExtResource("1_esjhi")]
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("1_h6xfn")
+strafe = true
+follow_mouse = true
+forward_acceleration = 5
+max_forward_velocity = 1000
+rotation_speed = 150
+friction = 1
+
+[node name="camera_follow" type="Node2D" parent="." index="4"]
+
+[node name="InteractArea" type="Area2D" parent="." index="6"]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" index="0"]
+shape = SubResource("CircleShape2D_dqtg0")
+
+[connection signal="area_entered" from="InteractArea" to="." method="_on_interact_area_area_entered"]

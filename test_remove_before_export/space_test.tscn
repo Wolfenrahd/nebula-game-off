@@ -1,0 +1,140 @@
+[gd_scene load_steps=8 format=3 uid="uid://cw3ewhjenchk4"]
+
+[ext_resource type="Script" path="res://test_remove_before_export/space_test.gd" id="1_1mlqt"]
+[ext_resource type="Script" path="res://levels/main_cam.gd" id="2_p1u8u"]
+[ext_resource type="Script" path="res://player/player_ship.gd" id="3_mvjqk"]
+[ext_resource type="Texture2D" uid="uid://d1x7bagy3cyx5" path="res://assets/art/characters/player_ship_detailed.png" id="4_gw848"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p7bsa"]
+emission_shape = 3
+emission_box_extents = Vector3(2880, 1620, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -5.0
+initial_velocity_max = 5.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xo5et"]
+emission_shape = 3
+emission_box_extents = Vector3(2880, 1620, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -10.0
+initial_velocity_max = 10.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 3.0
+scale_max = 3.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tbvjr"]
+emission_shape = 3
+emission_box_extents = Vector3(2880, 1620, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -20.0
+initial_velocity_max = 20.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 3.0
+scale_max = 3.0
+
+[node name="space" type="Node2D"]
+script = ExtResource("1_1mlqt")
+
+[node name="main_cam" type="Camera2D" parent="."]
+position = Vector2(0, 2)
+zoom = Vector2(0.5, 0.5)
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("2_p1u8u")
+
+[node name="Timer" type="Timer" parent="main_cam"]
+one_shot = true
+
+[node name="fade_screen" type="ColorRect" parent="main_cam"]
+offset_left = -2381.0
+offset_top = -1397.0
+offset_right = 2243.0
+offset_bottom = 1301.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 1)
+
+[node name="background_stars" type="Node2D" parent="main_cam"]
+
+[node name="stars_far" type="GPUParticles2D" parent="main_cam/background_stars"]
+z_index = -100
+amount = 4000
+process_material = SubResource("ParticleProcessMaterial_p7bsa")
+lifetime = 5.0
+preprocess = 200.0
+
+[node name="stars_middle" type="GPUParticles2D" parent="main_cam/background_stars"]
+z_index = -95
+amount = 1000
+process_material = SubResource("ParticleProcessMaterial_xo5et")
+lifetime = 5.0
+preprocess = 200.0
+
+[node name="stars_close" type="GPUParticles2D" parent="main_cam/background_stars"]
+z_index = -95
+amount = 250
+process_material = SubResource("ParticleProcessMaterial_tbvjr")
+lifetime = 5.0
+preprocess = 200.0
+
+[node name="player_ship" type="CharacterBody2D" parent="."]
+z_index = 10
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("3_mvjqk")
+
+[node name="camera_follow" type="Node2D" parent="player_ship"]
+
+[node name="Sprite2D" type="Sprite2D" parent="player_ship"]
+texture = ExtResource("4_gw848")
+
+[node name="guns" type="Node2D" parent="player_ship"]
+
+[node name="gun1" type="Node2D" parent="player_ship/guns"]
+position = Vector2(35, -22.5)
+
+[node name="gun2" type="Node2D" parent="player_ship/guns"]
+position = Vector2(35, 22.5)
+
+[node name="fire_rate_timer" type="Timer" parent="player_ship"]
+wait_time = 0.2
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="strafe_controls" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/strafe_controls"]
+layout_mode = 2
+text = "Strafe"
+
+[node name="strafe" type="CheckBox" parent="CanvasLayer/VBoxContainer/strafe_controls"]
+layout_mode = 2
+button_pressed = true
+
+[node name="follow_mouse_controls" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/follow_mouse_controls"]
+layout_mode = 2
+text = "Follow Mouse"
+
+[node name="follow_mouse" type="CheckBox" parent="CanvasLayer/VBoxContainer/follow_mouse_controls"]
+layout_mode = 2
+button_pressed = true
+
+[connection signal="timeout" from="main_cam/Timer" to="main_cam" method="_on_timer_timeout" flags=18]
+[connection signal="toggled" from="CanvasLayer/VBoxContainer/strafe_controls/strafe" to="." method="_on_strafe_toggled"]
+[connection signal="toggled" from="CanvasLayer/VBoxContainer/follow_mouse_controls/follow_mouse" to="." method="_on_follow_mouse_toggled"]

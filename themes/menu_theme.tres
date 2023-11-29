@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cymbtmi8h011n"]
+
+[ext_resource type="FontFile" uid="uid://btogd8bcqdsxd" path="res://assets/fonts/sans-mono.bold.otf" id="1_5gwyq"]
+
+[resource]
+default_font = ExtResource("1_5gwyq")
+default_font_size = 72

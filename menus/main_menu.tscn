@@ -1,0 +1,248 @@
+[gd_scene load_steps=14 format=3 uid="uid://0kwpnvdf2f3s"]
+
+[ext_resource type="Theme" uid="uid://cymbtmi8h011n" path="res://themes/menu_theme.tres" id="1_d11vq"]
+[ext_resource type="Script" path="res://menus/main_menu.gd" id="1_rehrm"]
+[ext_resource type="PackedScene" uid="uid://cuvpk7e8jdmto" path="res://menus/volume_menu.tscn" id="2_qpjfy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_in8eo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mees0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t5p1d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_njdid"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2v7m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f14ci"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0rub7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yuia8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ofoon"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hep8m"]
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_d11vq")
+script = ExtResource("1_rehrm")
+
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 5
+stretch_mode = 6
+
+[node name="ColorRect" type="ColorRect" parent="background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.00392157, 0, 0, 0.498039)
+
+[node name="title" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="continue_button" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72549, 0.65098, 0.592157, 1)
+theme_override_colors/font_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_color = Color(0.560784, 0.486275, 0.423529, 1)
+theme_override_colors/font_focus_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_in8eo")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mees0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_t5p1d")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_njdid")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_j2v7m")
+text = "Continue"
+
+[node name="new_game_button" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72549, 0.65098, 0.592157, 1)
+theme_override_colors/font_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_color = Color(0.560784, 0.486275, 0.423529, 1)
+theme_override_colors/font_focus_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_in8eo")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mees0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_t5p1d")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_njdid")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_j2v7m")
+text = "New Game"
+
+[node name="settings_button" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72549, 0.65098, 0.592157, 1)
+theme_override_colors/font_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_color = Color(0.560784, 0.486275, 0.423529, 1)
+theme_override_colors/font_focus_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_in8eo")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mees0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_t5p1d")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_njdid")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_j2v7m")
+text = "Settings"
+
+[node name="space_test_button" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72549, 0.65098, 0.592157, 1)
+theme_override_colors/font_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_color = Color(0.560784, 0.486275, 0.423529, 1)
+theme_override_colors/font_focus_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_in8eo")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mees0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_t5p1d")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_njdid")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_j2v7m")
+text = "Space Test"
+
+[node name="quit_button" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72549, 0.65098, 0.592157, 1)
+theme_override_colors/font_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_color = Color(0.560784, 0.486275, 0.423529, 1)
+theme_override_colors/font_focus_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_in8eo")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mees0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_t5p1d")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_njdid")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_j2v7m")
+text = "Quit"
+
+[node name="set_seed" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(531, 50)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -547.0
+offset_top = -66.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+
+[node name="seed_edit" type="LineEdit" parent="set_seed"]
+visible = false
+custom_minimum_size = Vector2(375, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+max_length = 19
+
+[node name="seed_button" type="Button" parent="set_seed"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72549, 0.65098, 0.592157, 1)
+theme_override_colors/font_pressed_color = Color(0.72549, 0.65098, 0.592157, 1)
+theme_override_colors/font_hover_color = Color(0.560784, 0.486275, 0.423529, 1)
+theme_override_colors/font_focus_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxEmpty_f14ci")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_0rub7")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_yuia8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ofoon")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hep8m")
+text = "Set Seed"
+
+[node name="back_button" type="Button" parent="."]
+layout_mode = 1
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 180.0
+offset_bottom = 105.0
+theme_override_colors/font_color = Color(0.72549, 0.65098, 0.592157, 1)
+theme_override_colors/font_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_color = Color(0.560784, 0.486275, 0.423529, 1)
+theme_override_colors/font_focus_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_in8eo")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mees0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_t5p1d")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_njdid")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_j2v7m")
+text = "Save Select"
+
+[node name="sounds_button" type="Button" parent="."]
+layout_mode = 2
+offset_left = 1666.0
+offset_top = 32.0
+offset_right = 1888.0
+offset_bottom = 105.0
+theme_override_colors/font_color = Color(0.72549, 0.65098, 0.592157, 1)
+theme_override_colors/font_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_color = Color(0.560784, 0.486275, 0.423529, 1)
+theme_override_colors/font_focus_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.780392, 0.717647, 0.662745, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_in8eo")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mees0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_t5p1d")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_njdid")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_j2v7m")
+text = "Sounds"
+
+[node name="volume_menu" parent="." instance=ExtResource("2_qpjfy")]
+visible = false
+layout_mode = 1
+
+[node name="dev_mode_message" type="Label" parent="."]
+visible = false
+self_modulate = Color(0.976471, 0, 0.282353, 1)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -960.0
+offset_right = 960.0
+offset_bottom = 76.0
+grow_horizontal = 2
+text = "turn off dev mode before export"
+horizontal_alignment = 1
+uppercase = true
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/continue_button" to="." method="_on_continue_buton_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/new_game_button" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/settings_button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/space_test_button" to="." method="_on_space_test_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="text_changed" from="set_seed/seed_edit" to="." method="_on_seed_edit_text_changed"]
+[connection signal="pressed" from="set_seed/seed_button" to="." method="_on_seed_button_pressed"]
+[connection signal="pressed" from="back_button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="sounds_button" to="." method="_on_sounds_button_pressed"]

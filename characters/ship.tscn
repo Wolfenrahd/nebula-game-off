@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2gfvxb856pha"]
+
+[ext_resource type="Script" path="res://characters/ship.gd" id="1_u1n8c"]
+[ext_resource type="Texture2D" uid="uid://d1x7bagy3cyx5" path="res://assets/art/characters/player_ship_detailed.png" id="2_dabvm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qdeuo"]
+radius = 40.0
+
+[sub_resource type="Animation" id="Animation_e0e5p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_icwok"]
+resource_name = "land"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n2bgg"]
+_data = {
+"RESET": SubResource("Animation_e0e5p"),
+"land": SubResource("Animation_icwok")
+}
+
+[node name="Ship" type="CharacterBody2D" groups=["ships"]]
+collision_layer = 256
+script = ExtResource("1_u1n8c")
+
+[node name="sprite" type="Sprite2D" parent="."]
+modulate = Color(1, 0.982989, 0, 1)
+texture = ExtResource("2_dabvm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qdeuo")
+
+[node name="guns" type="Node2D" parent="."]
+
+[node name="gun1" type="Node2D" parent="guns"]
+position = Vector2(35, -22.5)
+
+[node name="gun2" type="Node2D" parent="guns"]
+position = Vector2(35, 22.5)
+
+[node name="fire_rate_timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_n2bgg")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

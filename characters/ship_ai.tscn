@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmni55hjwmmau"]
+
+[ext_resource type="PackedScene" uid="uid://d2gfvxb856pha" path="res://characters/ship.tscn" id="1_b16o1"]
+[ext_resource type="Script" path="res://characters/ship_ai.gd" id="1_po3d7"]
+
+[node name="ShipAI" instance=ExtResource("1_b16o1")]
+script = ExtResource("1_po3d7")
+
+[node name="fire_rate_timer" parent="." index="3"]
+wait_time = 0.5

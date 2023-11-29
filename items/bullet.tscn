@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://c427v44dk0lwb"]
+
+[ext_resource type="PackedScene" uid="uid://c5aqnavd2o1bw" path="res://items/projectile.tscn" id="1_sy8xy"]
+[ext_resource type="Script" path="res://items/bullet.gd" id="2_y0qoi"]
+[ext_resource type="Texture2D" uid="uid://b4j7ews2hbnt0" path="res://assets/art/items/bullet.png" id="3_i1sy2"]
+
+[sub_resource type="Animation" id="Animation_ah0vq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_dfsal"]
+resource_name = "fire"
+length = 0.04
+step = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.02),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [true],
+"method": &"set_physics_process"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ir0h7"]
+_data = {
+"RESET": SubResource("Animation_ah0vq"),
+"fire": SubResource("Animation_dfsal")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tc0dy"]
+size = Vector2(3, 1)
+
+[node name="bullet" instance=ExtResource("1_sy8xy")]
+script = ExtResource("2_y0qoi")
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="0"]
+scale = Vector2(0.2, 0.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
+texture = ExtResource("3_i1sy2")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+autoplay = "fire"
+libraries = {
+"": SubResource("AnimationLibrary_ir0h7")
+}
+
+[node name="hitbox" parent="." index="3"]
+collision_mask = 35
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" index="0"]
+shape = SubResource("RectangleShape2D_tc0dy")

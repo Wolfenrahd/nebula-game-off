@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://67p7hb5inb7g"]
+
+[ext_resource type="Script" path="res://levels/main_cam.gd" id="1_kkj5l"]
+
+[node name="main_cam" type="Camera2D"]
+position = Vector2(160, 90)
+zoom = Vector2(6, 6)
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("1_kkj5l")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="fade_screen" type="ColorRect" parent="."]
+offset_left = -200.0
+offset_top = -130.0
+offset_right = 200.0
+offset_bottom = 150.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
