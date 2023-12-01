@@ -60,6 +60,7 @@ func load_data():
 	for stat in save_data:
 		stats.save_data[stat] = save_data[stat]
 	stats.rng.state = stats.save_data.seed_state
+	stats.health = save_data.run_data.health
 
 func check_old_data(save_data):
 	var version = default_save_data.version

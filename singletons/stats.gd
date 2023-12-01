@@ -1,10 +1,16 @@
 extends Node
 
-var dev_mode = true
+var dev_mode = false
 
 var rng = RandomNumberGenerator.new()
 
 var save_slot
+
+var unlockables = [
+	"air_jump_unlocked",
+	"wall_climbing_unlocked",
+	"teleport_unlocked",
+	"missiles_unlocked"]
 
 signal no_health
 signal max_health_changed
@@ -36,7 +42,7 @@ const FACTION_NAME_PARTS := {
 	]
 }
 
-var max_health = 4 : set = set_max_health
+var max_health = 3 : set = set_max_health
 func set_max_health(value):
 	max_health = value
 	max_health_changed.emit()
@@ -51,11 +57,13 @@ func set_health(value):
 
 
 var new_run_data = {
+	"wall_jump_unlocked" : false,
 	"max_health" : max_health,
 	"health" : health,
+	"current_location" : "res://levels/world.tscn",
+	"current_planet" : {},
 	"space_location" : Vector2(-1000,0),
-	"wall_jump_unlocked" : false,
-	"air_jump_unlocked" : false,
+	"first_take_off" : true,
 	"zone_seeds": [],
 	"star_map_size": Vector2(8, 8),
 	"current_zone_coords": Vector2(0, 0),
@@ -95,6 +103,9 @@ func _ready():
 
 func reset_run():
 	save_data["run_data"] = new_run_data.duplicate()
+	
+	for unlockable in unlockables:
+		save_data["run_data"][unlockable] = false
 	
 	save_data.run_data.zone_seeds = []
 	save_data.run_data.zones = []
@@ -160,18 +171,33 @@ func generate_planets(zone_x, zone_y, seed) -> void:
 	
 	var rng = RandomNumberGenerator.new()
 	rng.seed = seed
-	
 	var planet_count = rng.randi() % 15
+	if zone_x == 0 && zone_y == 0 && planet_count == 0:
+		planet_count = 1
 	for i in range(planet_count):
 		var planet := {
-			"owner": "civilian",
+			"owner": "citizens",
 			"units": {},
 			"wealth": 0,
 			"materials": 0,
 			"food": 0,
 			"citizens": 0,
-			"score": 0
+			"score": 0,
+			"planet_seed" : rng.randi(),
+			"planet_index":Vector3(zone_x,zone_y,i),
+			"persistant_data":{
+				"destroyed_tiles":[],
+				"destroyed_interactables":[],
+			},
+			"planet_type":"",
 		}
+		
+		
+		planet["planet_type"] = "basic"
+		
+		if zone_x == 0 && zone_y == 0 && i ==0:
+			planet["planet_type"] = "first_planet"
+		
 		zone["planets"].append(planet)
 		
 		var name_part_count = rng.randf_range(2, 4)
@@ -193,6 +219,9 @@ func generate_planets(zone_x, zone_y, seed) -> void:
 		
 		var is_big = rng.randi() % 2
 		planet["size"] = is_big
+		
+		if zone_x == 0 && zone_y == 0 && i ==0:
+			planet["size"] = 0
 		
 		#generate moons
 		var moon_probability = rng.randf()
@@ -256,7 +285,7 @@ func generate_factions() -> void:
 	
 	var colors = FACTION_NAME_PARTS["colors"].keys()
 	var adjectives = colors + FACTION_NAME_PARTS["adjectives"]
-	var nouns = FACTION_NAME_PARTS["nouns"]
+	var nouns = FACTION_NAME_PARTS["nouns"].duplicate()
 	
 	var used_adjectives := []
 	for i in government_faction_count:
@@ -279,7 +308,7 @@ func generate_factions() -> void:
 			color = FACTION_NAME_PARTS["colors"][colors[color_index]]
 			colors.remove_at(color_index)
 		
-		print("faction name ", faction_name)
+		#print("faction name ", faction_name)
 		
 		save_data["run_data"]["government_factions"][faction_name] = {
 			"color": color

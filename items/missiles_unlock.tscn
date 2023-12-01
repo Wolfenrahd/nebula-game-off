@@ -1,0 +1,96 @@
+[gd_scene load_steps=14 format=3 uid="uid://culs65l2qigk"]
+
+[ext_resource type="PackedScene" uid="uid://c7mtithjia14e" path="res://items/unlockable.tscn" id="1_t8w3i"]
+[ext_resource type="Texture2D" uid="uid://ckjcljyedfj5m" path="res://assets/art/items/missile_pickup.png" id="2_w6fud"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ml3l4"]
+atlas = ExtResource("2_w6fud")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2u3e"]
+atlas = ExtResource("2_w6fud")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0af8m"]
+atlas = ExtResource("2_w6fud")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ers7n"]
+atlas = ExtResource("2_w6fud")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhwxj"]
+atlas = ExtResource("2_w6fud")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wflpf"]
+atlas = ExtResource("2_w6fud")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lshf"]
+atlas = ExtResource("2_w6fud")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfvxb"]
+atlas = ExtResource("2_w6fud")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ekk0p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ml3l4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2u3e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0af8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ers7n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhwxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wflpf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lshf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfvxb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8x1h6"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0opxn"]
+radius = 8.0
+
+[node name="missiles_unlock" instance=ExtResource("1_t8w3i")]
+unlockable = "missiles_unlocked"
+type = "unlockable"
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_ekk0p")
+autoplay = "default"
+frame = 4
+frame_progress = 0.900383
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_8x1h6")
+
+[node name="CollisionShape2D" parent="interactable_area" index="0"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_0opxn")
+
+[node name="upgrade_particles" parent="." index="3"]
+position = Vector2(0, -8)

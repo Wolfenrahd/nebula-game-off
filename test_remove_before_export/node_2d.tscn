@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://br0ftfdl3cunb"]
+
+[ext_resource type="Script" path="res://test_remove_before_export/node_2d.gd" id="1_peh8h"]
+[ext_resource type="TileSet" uid="uid://gbjvwgm01oya" path="res://tilesets/planet_1_auto.tres" id="2_f2auc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ra2m0"]
+radius = 128.996
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_peh8h")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_f2auc")
+format = 2
+layer_0/tile_data = PackedInt32Array(786440, 65536, 0, 786441, 65536, 0, 851979, 65536, 2, 786442, 65536, 0, 851981, 65536, 2, 851980, 65536, 2, 851983, 65536, 2, 851982, 65536, 2, 851986, 65536, 2, 851985, 65536, 2, 851984, 65536, 2, 851988, 65536, 2, 851987, 65536, 2, 851990, 65536, 2, 851989, 65536, 2, 851991, 65536, 2, 851993, 65536, 2, 851992, 65536, 2, 851994, 65536, 2, 851995, 65536, 2, 851996, 65536, 2, 851997, 65536, 2, 851998, 131072, 2, 786462, 131072, 0, 786461, 65536, 0, 786459, 65536, 0, 786460, 65536, 0, 786458, 65536, 0, 786457, 65536, 0, 786456, 65536, 0, 786454, 65536, 0, 786455, 65536, 0, 786453, 65536, 0, 786452, 65536, 0, 786451, 65536, 0, 786449, 65536, 0, 786450, 65536, 0, 786448, 65536, 0, 786447, 65536, 0, 786445, 65536, 0, 786446, 65536, 0, 786444, 65536, 0, 786443, 65536, 0, 786439, 0, 0, 851975, 0, 2, 851976, 65536, 2, 851977, 65536, 2, 851978, 65536, 2)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(208, 200)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ra2m0")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

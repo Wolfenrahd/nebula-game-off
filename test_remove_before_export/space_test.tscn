@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cw3ewhjenchk4"]
+[gd_scene load_steps=9 format=3 uid="uid://cw3ewhjenchk4"]
 
 [ext_resource type="Script" path="res://test_remove_before_export/space_test.gd" id="1_1mlqt"]
 [ext_resource type="Script" path="res://levels/main_cam.gd" id="2_p1u8u"]
@@ -6,38 +6,35 @@
 [ext_resource type="Texture2D" uid="uid://d1x7bagy3cyx5" path="res://assets/art/characters/player_ship_detailed.png" id="4_gw848"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p7bsa"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(2880, 1620, 1)
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = -5.0
 initial_velocity_max = 5.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xo5et"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(2880, 1620, 1)
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = -10.0
 initial_velocity_max = 10.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 scale_min = 3.0
 scale_max = 3.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tbvjr"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(2880, 1620, 1)
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = -20.0
 initial_velocity_max = 20.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 scale_min = 3.0
 scale_max = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6v5mv"]
+radius = 172.003
 
 [node name="space" type="Node2D"]
 script = ExtResource("1_1mlqt")
@@ -135,6 +132,13 @@ text = "Follow Mouse"
 layout_mode = 2
 button_pressed = true
 
-[connection signal="timeout" from="main_cam/Timer" to="main_cam" method="_on_timer_timeout" flags=18]
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(418, -22)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_6v5mv")
+
+[connection signal="timeout" from="main_cam/Timer" to="main_cam" method="_on_timer_timeout"]
 [connection signal="toggled" from="CanvasLayer/VBoxContainer/strafe_controls/strafe" to="." method="_on_strafe_toggled"]
 [connection signal="toggled" from="CanvasLayer/VBoxContainer/follow_mouse_controls/follow_mouse" to="." method="_on_follow_mouse_toggled"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

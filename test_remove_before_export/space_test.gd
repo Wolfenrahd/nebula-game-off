@@ -11,7 +11,10 @@ func _ready():
 #	player.connect("player_dead",player_dead)
 	main_cam.change_target(player.camera_follow)
 	RenderingServer.set_default_clear_color(Color.BLACK)
+	#$Area2D.connect("mouse_entered",_on_enter)
 
+func _on_enter():
+	print("hey")
 
 func change_camera_target(new_target):
 	main_cam.change_target(new_target)
@@ -25,3 +28,7 @@ func _on_strafe_toggled(button_pressed):
 
 func _on_follow_mouse_toggled(button_pressed):
 	player.follow_mouse = button_pressed
+
+
+func _on_area_2d_mouse_entered():
+	print("hey")

@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 var utils = Utils
 var save_data = Stats.save_data["run_data"]
+var stats = Stats
 
 const DUST_EFFECT_SCENE = preload("res://effects/dust_effect.tscn")
 const JUMP_EFFECT_SCENE = preload("res://effects/jump_effect.tscn")
@@ -26,13 +27,13 @@ const WALL_JUMP_EFFECT_SCENE = preload("res://effects/wall_jump_effect.tscn")
 @export var jump_force = 128
 @export var max_wall_slide_speed = 128
 @export var wall_slide_speed = 42
+@export var wall_climb_speed = 21
 
-var wall_jump_unlocked = save_data["wall_jump_unlocked"]
-var air_jump_unlocked = save_data["air_jump_unlocked"]
 var air_jump = false
 var state = move_state
 
 signal player_dead()
+
 
 func _ready():
 	Stats.no_health.connect(die)
@@ -64,7 +65,10 @@ func move_state(delta):
 
 func wall_slide_state(delta):
 	var wall_normal = sign(get_wall_normal().x)
-	animation_player.play("wall_slide")
+	if Input.is_action_pressed("up") && stats.save_data.run_data["wall_climbing_unlocked"]:
+		animation_player.play("wall_climb")
+	else:
+		animation_player.play("wall_slide")
 	sprite_2d.scale.x = wall_normal
 	velocity.y = clampf(velocity.y, -max_wall_slide_speed, max_wall_slide_speed)
 	wall_jump_check(wall_normal)
@@ -73,7 +77,7 @@ func wall_slide_state(delta):
 	wall_detach(delta)
 
 func wall_check():
-	if not is_on_floor() and is_on_wall():
+	if not is_on_floor() and is_on_wall() or Input.is_action_pressed("up") and is_on_wall() and stats.save_data.run_data["wall_climbing_unlocked"]:
 		state = wall_slide_state
 		air_jump = true
 #		create_dust_effect()
@@ -85,11 +89,11 @@ func wall_detach(delta):
 	if Input.is_action_just_pressed("left"):
 		velocity.x = -acceleration * delta
 		state = move_state
-	if not is_on_wall() or is_on_floor():
+	if not is_on_wall() and not is_on_ceiling() or is_on_floor():
 		state = move_state
 
 func wall_jump_check(wall_axis):
-	if Input.is_action_just_pressed("jump") and wall_jump_unlocked:
+	if Input.is_action_just_pressed("jump") and stats.save_data.run_data["wall_jump_unlocked"]:
 		velocity.x = wall_axis * max_velocity
 		state = move_state
 		jump(jump_force*0.75,false)
@@ -99,7 +103,9 @@ func wall_jump_check(wall_axis):
 
 func apply_wall_slide_gravity(delta):
 	var slide_speed = wall_slide_speed
-	if Input.is_action_pressed("down"):
+	if Input.is_action_pressed("up") && stats.save_data.run_data["wall_climbing_unlocked"]:
+		slide_speed = -wall_climb_speed
+	elif Input.is_action_pressed("down"):
 		slide_speed = max_wall_slide_speed
 	else:
 		slide_speed = wall_slide_speed
@@ -134,7 +140,7 @@ func jump_check():
 	elif not is_on_floor():
 		if Input.is_action_just_released("jump") and velocity.y < -jump_force / 2:
 			velocity.y = -jump_force / 2
-		if Input.is_action_just_pressed("jump") and air_jump and air_jump_unlocked:
+		if Input.is_action_just_pressed("jump") and air_jump and stats.save_data.run_data["air_jump_unlocked"]:
 			jump(jump_force * 0.75,false,true)
 			air_jump = false
 

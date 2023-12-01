@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4cmttc2l7sc0"]
+
+[ext_resource type="Script" path="res://levels/planet_chunks/room.gd" id="1_iooir"]
+[ext_resource type="TileSet" uid="uid://gbjvwgm01oya" path="res://tilesets/planet_1_auto.tres" id="2_8djq7"]
+
+[node name="drop_1_4" type="Node2D"]
+script = ExtResource("1_iooir")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_8djq7")
+format = 2
+layer_0/tile_data = PackedInt32Array(524300, 131072, 0, 589826, 0, 3, 589827, 131072, 3, 983046, 131072, 3, 983045, 0, 3, 983052, 196608, 3, 851970, 196608, 3, 720896, 196608, 3, 327682, 131072, 3, 327681, 262144, 3, 262145, 196608, 0, 393226, 327680, 2, 327690, 131072, 1, 262154, 131072, 1, 196618, 131072, 1, 131082, 131072, 0, 393227, 131072, 0, 262157, 196608, 3, 131075, 196608, 3, 458763, 131072, 1, 524299, 327680, 2, 655375, 131072, 0, 655374, 65536, 0, 655373, 65536, 0, 655372, 589824, 0, 589836, 131072, 1, 458762, 65536, 1, 524298, 393216, 1, 589835, 393216, 1, 655371, 0, 2, 720908, 0, 2, 720909, 65536, 2, 720910, 65536, 2, 720911, 131072, 2, 131081, 0, 0, 196617, 0, 1, 262153, 0, 1, 327689, 0, 1, 393225, 0, 1, 458761, 0, 1, 589834, 0, 2, 524297, 0, 2, 458757, 196608, 3)
+
+[node name="enemies" type="Node2D" parent="."]
+
+[node name="enemy1" type="Marker2D" parent="enemies"]
+position = Vector2(48, 144)
+
+[node name="enemy2" type="Marker2D" parent="enemies"]
+position = Vector2(96, 240)
+
+[node name="enemy3" type="Marker2D" parent="enemies"]
+position = Vector2(160, 32)
+
+[node name="enemy4" type="Marker2D" parent="enemies"]
+position = Vector2(232, 160)

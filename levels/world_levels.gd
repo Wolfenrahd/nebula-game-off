@@ -1,7 +1,9 @@
 extends Node2D
 
+
 @onready var player = $player
 @onready var main_cam = $main_cam
+@onready var tile_map = $TileMap
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

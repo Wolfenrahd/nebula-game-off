@@ -25,4 +25,6 @@ func fire_bullet():
 		fire_rate_timer.start()
 		var bullet = utils.instantiate_scene_on_world(BULLET_SCENE,muzzle.global_position)
 		bullet.rotation = blaster_sprite.rotation
+		
+		Sounds.play_sfx("laser")
 

@@ -11,10 +11,23 @@ var voice_path = "res://assets/voice/"
 var sfx = {
 	"smell_this_bread" : load(sfx_path+"smell_this_bread.wav"),
 	"angel_1_1" : load(sfx_path+"angel_1_1.wav"),
+	"laser": load(sfx_path+"laser.wav"),
+	"wall_hit": load(sfx_path+"wall_hit.wav"),
+	"enemy_hit": load(sfx_path+"enemy_hit.wav"),
+	"upgrade": load(sfx_path+"upgrade.wav")
 	}
 
 var music = {
+	"dread_of_space": load("res://assets/music/dread_of_space.ogg"),
+	"wonders_of_space": load("res://assets/music/wonders_of_space.ogg"),
+	"misadventures_of_space": load("res://assets/music/misadventures_of_space.ogg"),
+	"misadventures_of_planet": load("res://assets/music/misadventures_of_planet.ogg")
 }
+
+var space_music = [
+	"dread_of_space",
+	"wonders_of_space",
+]
 
 var voice = {}
 

@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bxggdwfegxfie" path="res://characters/hitbox.tscn" id="4_g5uoy"]
 [ext_resource type="PackedScene" uid="uid://dcfu0p2itvvs3" path="res://characters/character_stats.tscn" id="5_sjmpq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ombf0"]
-size = Vector2(8, 10)
+[sub_resource type="CircleShape2D" id="CircleShape2D_j3qa1"]
+radius = 5.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o86vc"]
 size = Vector2(18, 10)
@@ -70,7 +70,7 @@ hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
-shape = SubResource("RectangleShape2D_ombf0")
+shape = SubResource("CircleShape2D_j3qa1")
 
 [node name="floor_cast" type="RayCast2D" parent="."]
 position = Vector2(0, -4)
@@ -96,10 +96,10 @@ debug_color = Color(0.729412, 0.160784, 0.372549, 0.419608)
 [node name="character_stats" parent="." instance=ExtResource("5_sjmpq")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "move"
 libraries = {
 "": SubResource("AnimationLibrary_lras6")
 }
+autoplay = "move"
 
 [connection signal="hurt" from="hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="no_health" from="character_stats" to="." method="_on_character_stats_no_health"]

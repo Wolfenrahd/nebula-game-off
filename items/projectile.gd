@@ -7,6 +7,9 @@ const EXPLOSION_EFFECT_SCENE = preload("res://effects/explosion_effect.tscn")
 
 var velocity = Vector2.ZERO
 var velocity_updated = false
+var auto_velocity = true
+
+var projectile_type = "n/a"
 
 func update_velocity():
 	velocity.x = speed
@@ -14,7 +17,7 @@ func update_velocity():
 	velocity_updated = true
 
 func _physics_process(delta):
-	if !velocity_updated:
+	if !velocity_updated and auto_velocity:
 		update_velocity()
 	position += velocity*delta
 
@@ -23,6 +26,8 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 func _on_hitbox_body_entered(body):
 	Utils.instantiate_scene_on_world(EXPLOSION_EFFECT_SCENE,global_position)
+	if body.is_in_group("tilemap") && projectile_type == "missile":
+		body.destroy(global_position)
 	queue_free()
 
 func _on_hitbox_area_entered(area):

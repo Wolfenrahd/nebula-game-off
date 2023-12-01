@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://djf8xnljbt4pj"]
+
+[ext_resource type="Theme" uid="uid://cymbtmi8h011n" path="res://themes/menu_theme.tres" id="1_vk2jo"]
+[ext_resource type="Script" path="res://ui/pause_menu.gd" id="2_0fbux"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gahrf"]
+content_margin_left = 50.0
+content_margin_top = 50.0
+content_margin_right = 50.0
+content_margin_bottom = 50.0
+bg_color = Color(0.164706, 0.164706, 0.164706, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1agcf"]
+font_size = 256
+
+[node name="PauseMenu" type="HBoxContainer"]
+process_mode = 3
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 465.0
+offset_bottom = 402.0
+script = ExtResource("2_0fbux")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("1_vk2jo")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gahrf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="ReloadSave" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Reload Save"
+
+[node name="MainMenu" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="seed_label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Seed: 83"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Paused"
+label_settings = SubResource("LabelSettings_1agcf")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/ReloadSave" to="." method="_on_reload_save_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

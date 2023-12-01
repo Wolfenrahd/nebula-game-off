@@ -9,6 +9,8 @@ var run_data = Stats.save_data["run_data"]
 @onready var star_map_grid = $CanvasLayer/StarMap/GridContainer
 @onready var border_line = $Border/Line2D
 
+@onready var pause_menu = $CanvasLayer/PauseMenu
+
 var visible_static_object_count := 0
 
 @export var world_radius := 4000
@@ -73,6 +75,8 @@ var current_zone_button = null
 var planet_infos := []
 
 func _ready():
+	print(stats.rng.seed)
+	#print(stats.save_data.run_data)
 	player.global_position = run_data["space_location"]
 #	player.connect("player_dead",player_dead)
 	main_cam.change_target(player.camera_follow)
@@ -109,32 +113,16 @@ func _ready():
 #	generate(2)
 #	generate(save_data["space_seed"])
 	
-#	$ShipAI.orbit_target = $Objects.get_children().pick_random()
-#	$ShipAI2.orbit_target = $Objects.get_children().pick_random()
-#	$ShipAI3.orbit_target = $Objects.get_children().pick_random()
-#	$ShipAI4.orbit_target = $Objects.get_children().pick_random()
-#	$ShipAI.follow_target = $Characters/player_ship
-#	$ShipAI2.follow_target = $Characters/player_ship
-#	$ShipAI3.follow_target = $Characters/player_ship
-#	$ShipAI4.follow_target = $Characters/player_ship
-
-#	$ShipAI.attack_target = $Characters/player_ship
-#	$ShipAI2.attack_target = $Characters/player_ship
-#	$ShipAI3.attack_target = $Characters/player_ship
-#	$ShipAI4.attack_target = $Characters/player_ship
 	
 	star_map.hide()
 	
-	$ShipAI.land_target = $Objects.get_children().pick_random()
-	$ShipAI2.land_target = $Objects.get_children().pick_random()
-	$ShipAI3.land_target = $Objects.get_children().pick_random()
-	$ShipAI4.land_target = $Objects.get_children().pick_random()
-#
-#	$ShipAI.follow_target = $Characters/player_ship
-#	$ShipAI2.follow_target = $Characters/player_ship
-#	$ShipAI3.attack_target = $Characters/player_ship
-#	$ShipAI4.attack_target = $Characters/player_ship
+	Sounds.play_music(Sounds.space_music.pick_random())
+	Sounds.music_player.finished.connect(_on_music_finished)
 
+func _on_music_finished():
+	var available_music = Sounds.space_music.duplicate()
+	available_music.erase(Sounds.music_playing)
+	Sounds.play_music(available_music.pick_random())
 #func generate_faction_name() -> String:
 	
 
@@ -176,13 +164,15 @@ func generate(zone) -> void:
 		
 		var planet = preload("res://locations/planet.tscn").instantiate()
 		$Objects.add_child(planet)
-		
 		planet.mouse_entered.connect(_on_planet_mouse_entered.bind(planet))
 		planet.mouse_exited.connect(_on_planet_mouse_exited.bind(planet))
 		
 		planet.data = planet_data
 		
 		planet.position = $Sun.position + Vector2(distance_from_sun, 0).rotated(angle)
+		if stats.save_data.run_data.first_take_off:
+			player.position = $Sun.position + Vector2(distance_from_sun, 0).rotated(angle)
+			stats.save_data.run_data.first_take_off = false
 		
 		planet.name = planet_data["name"]
 		
@@ -218,16 +208,16 @@ func generate(zone) -> void:
 		
 		#generate biome
 		var biome = planet_data["biome"]
-		if biome == FOREST:
+		if biome == Planet.BIOMES.FOREST:
 			planet.surface.self_modulate = get_random_rgbv(rng, 0, 0.3, 0, 1, 0.5, 1, 0.5, 1)
 			planet.terrain.modulate = get_random_rgbv(rng, 0, 0.4, .7, 1, 0, 0.4, 0.4, 1)
-		elif biome == ICE:
+		elif biome == Planet.BIOMES.ICE:
 			planet.surface.self_modulate = get_random_rgbv(rng, 0, 1, 0.5, 0.8, 0.8, 1, 0.9, 1)
 			planet.terrain.modulate = get_random_rgbv(rng, 0.5, 1, 0.7, 1, 0.9, 1, 0.8, 1)
-		elif biome == WATER_WORLD:
+		elif biome == Planet.BIOMES.WATER_WORLD:
 			planet.surface.self_modulate = get_random_rgbv(rng, 0, 0, 0, 0.5, 0.5, 1, 0.5, 1)
 			planet.terrain.modulate = get_random_rgbv(rng, 0, 0.0, 0, 0.5, 0.5, 1, 0.4, 1)
-		elif biome == DESERT:
+		elif biome == Planet.BIOMES.DESERT:
 			planet.surface.self_modulate = get_random_rgbv(rng, 0.5, 1, 0, 0.5, 0, 0.25, 0.3, 1)
 			planet.terrain.modulate = get_random_rgbv(rng, 0.5, 1, 0, 0.5, 0, 0.5, 0.3, 1)
 		
@@ -279,6 +269,7 @@ func get_random_rgbv(rng, min_r, max_r, min_g, max_g, min_b, max_b, min_v, max_v
 	color.v = rng.randf_range(min_v, max_v)
 	return color
 
+
 func _physics_process(delta: float) -> void:
 	if $Border.get_overlapping_bodies().size() == 0:
 		if player.velocity.length() > highest_border_speed:
@@ -288,13 +279,15 @@ func _physics_process(delta: float) -> void:
 		if highest_border_speed > 1:
 			speed = highest_border_speed * highest_border_speed
 		
-		player.velocity += -player.global_position.normalized() * delta * (highest_border_speed + 10)
+		player.velocity += -player.global_position.normalized() * delta * (highest_border_speed * 1.2 + 10)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("map"):
 		star_map.visible = !star_map.visible
 		if star_map.visible:
 			update_star_map_colors()
+	elif event.is_action_pressed("pause"):
+		pause_menu.pause()
 
 func _on_zone_button_pressed(zone_button) -> void:
 	var zone = run_data.zones[zone_button.coords.y][zone_button.coords.x]
@@ -326,6 +319,8 @@ func _on_travel_pressed() -> void:
 	var zone = run_data.zones[selected_zone_coords.y][selected_zone_coords.x]
 	var zone_seed = run_data["zone_seeds"][selected_zone_coords.y][selected_zone_coords.x]
 	generate(zone)
+	stats.save_data.run_data.space_location = player.position
+	SaveAndLoad.update_save_data()
 
 func change_camera_target(new_target):
 	main_cam.change_target(new_target)
@@ -365,7 +360,7 @@ func update_star_map_colors() -> void:
 		for faction_name in zone_ownership.keys():
 			if faction_name in run_data.government_factions.keys():
 				zone_button.faction_color_panels[faction_name].modulate.a = zone_ownership[faction_name]
-		print("ownership ", zone_button.coords, zone_ownership)
+		#print("ownership ", zone_button.coords, zone_ownership)
 
 func _on_planet_mouse_entered(planet) -> void:
 	$CanvasLayer/PlanetInfo.show()
@@ -377,7 +372,8 @@ func _on_planet_mouse_exited(planet) -> void:
 
 
 func _on_tick_timer_timeout() -> void:
-	print("tick")
+	pass
+	#print("tick")
 	
 	var gov_factions = run_data.government_factions
 	for faction in run_data.government_factions.values():
@@ -401,6 +397,6 @@ func _on_tick_timer_timeout() -> void:
 	for faction_name in run_data.government_factions.keys():
 		var faction = run_data.government_factions[faction_name]
 		
-		print(faction_name, ": ", faction.military_unit_baseline)
+		#print(faction_name, ": ", faction.military_unit_baseline)
 	
 	$CanvasLayer/PlanetInfo.update_info()

@@ -1,0 +1,93 @@
+[gd_scene load_steps=14 format=3 uid="uid://tdk8aqa3yslo"]
+
+[ext_resource type="PackedScene" uid="uid://c7mtithjia14e" path="res://items/unlockable.tscn" id="1_e6uf4"]
+[ext_resource type="Texture2D" uid="uid://debyumwg8r84m" path="res://assets/art/items/climbing_boots_upgrade.png" id="2_donga"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6p20l"]
+atlas = ExtResource("2_donga")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7334"]
+atlas = ExtResource("2_donga")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqal3"]
+atlas = ExtResource("2_donga")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_womj5"]
+atlas = ExtResource("2_donga")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4pxk"]
+atlas = ExtResource("2_donga")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fi3bi"]
+atlas = ExtResource("2_donga")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7yuu"]
+atlas = ExtResource("2_donga")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bm1aw"]
+atlas = ExtResource("2_donga")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_at810"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6p20l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7334")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqal3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_womj5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4pxk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fi3bi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7yuu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bm1aw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g2j86"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yrsee"]
+radius = 8.0
+
+[node name="climbing_boots" instance=ExtResource("1_e6uf4")]
+unlockable = "wall_climbing_unlocked"
+type = "unlockable"
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_at810")
+autoplay = "default"
+frame = 7
+frame_progress = 0.111361
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_g2j86")
+
+[node name="CollisionShape2D" parent="interactable_area" index="0"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_yrsee")

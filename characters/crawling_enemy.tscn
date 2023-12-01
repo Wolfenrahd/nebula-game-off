@@ -1,0 +1,91 @@
+[gd_scene load_steps=13 format=3 uid="uid://csw5p1wys7un5"]
+
+[ext_resource type="Texture2D" uid="uid://ctxuli6fkemn4" path="res://assets/art/characters/crawling_enemy.png" id="1_k07jr"]
+[ext_resource type="Script" path="res://characters/crawling_enemy.gd" id="1_pmo1g"]
+[ext_resource type="PackedScene" uid="uid://csisfys2gknmj" path="res://characters/hurtbox.tscn" id="2_2o51b"]
+[ext_resource type="PackedScene" uid="uid://bxggdwfegxfie" path="res://characters/hitbox.tscn" id="3_vs7sn"]
+[ext_resource type="PackedScene" uid="uid://dcfu0p2itvvs3" path="res://characters/character_stats.tscn" id="5_eo5re"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fu3gg"]
+atlas = ExtResource("1_k07jr")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wj6f"]
+atlas = ExtResource("1_k07jr")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xomtq"]
+atlas = ExtResource("1_k07jr")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vggip"]
+atlas = ExtResource("1_k07jr")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c5ov6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fu3gg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wj6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xomtq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vggip")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_by7t7"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2o668"]
+size = Vector2(12, 6)
+
+[node name="crawling_enemy" type="Node2D"]
+script = ExtResource("1_pmo1g")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_c5ov6")
+autoplay = "default"
+frame = 1
+frame_progress = 0.648943
+
+[node name="hurtbox" parent="." instance=ExtResource("2_2o51b")]
+collision_layer = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_by7t7")
+
+[node name="hitbox" parent="." instance=ExtResource("3_vs7sn")]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_2o668")
+
+[node name="floor_cast" type="RayCast2D" parent="."]
+position = Vector2(0, -4)
+target_position = Vector2(0, 8)
+
+[node name="wall_cast" type="RayCast2D" parent="."]
+position = Vector2(0, -4)
+target_position = Vector2(5, 0)
+
+[node name="character_stats" parent="." instance=ExtResource("5_eo5re")]
+max_health = 2
+
+[node name="lost_floor_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="hurt" from="hurtbox" to="." method="_on_hurtbox_hurt"]
+[connection signal="no_health" from="character_stats" to="." method="_on_character_stats_no_health"]
+[connection signal="timeout" from="lost_floor_timer" to="." method="_on_lost_floor_timer_timeout"]

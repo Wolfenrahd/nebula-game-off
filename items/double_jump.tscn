@@ -1,0 +1,96 @@
+[gd_scene load_steps=14 format=3 uid="uid://df8i61rynn0ec"]
+
+[ext_resource type="PackedScene" uid="uid://c7mtithjia14e" path="res://items/unlockable.tscn" id="1_fqit7"]
+[ext_resource type="Texture2D" uid="uid://dc6ncw2io28gu" path="res://assets/art/items/double_jump_upgrade.png" id="2_t510m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhv44"]
+atlas = ExtResource("2_t510m")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ybg7"]
+atlas = ExtResource("2_t510m")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgh8h"]
+atlas = ExtResource("2_t510m")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ikcs"]
+atlas = ExtResource("2_t510m")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gu7g"]
+atlas = ExtResource("2_t510m")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eeg01"]
+atlas = ExtResource("2_t510m")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fr3n1"]
+atlas = ExtResource("2_t510m")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylkuh"]
+atlas = ExtResource("2_t510m")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e2010"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhv44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ybg7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgh8h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ikcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gu7g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eeg01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fr3n1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylkuh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vgue2"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8g5qi"]
+radius = 8.0
+
+[node name="double_jump" instance=ExtResource("1_fqit7")]
+unlockable = "air_jump_unlocked"
+type = "unlockable"
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_e2010")
+autoplay = "default"
+frame = 5
+frame_progress = 0.522079
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_vgue2")
+
+[node name="CollisionShape2D" parent="interactable_area" index="0"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_8g5qi")
+
+[node name="upgrade_particles" parent="." index="3"]
+position = Vector2(0, -8)

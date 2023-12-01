@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://bejdjnustdakl"]
+
+[ext_resource type="PackedScene" uid="uid://c5aqnavd2o1bw" path="res://items/projectile.tscn" id="1_nkfvq"]
+[ext_resource type="Texture2D" uid="uid://bao1efl5dt1tj" path="res://assets/art/items/plant_bullet.png" id="2_bg2er"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qrdom"]
+radius = 5.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akakv"]
+atlas = ExtResource("2_bg2er")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjp8k"]
+atlas = ExtResource("2_bg2er")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jd3cm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akakv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjp8k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[node name="plant_bullet" instance=ExtResource("1_nkfvq")]
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="0"]
+position = Vector2(5.96046e-07, 1.19209e-07)
+scale = Vector2(0.7, 0.7)
+
+[node name="hitbox" parent="." index="1"]
+collision_mask = 19
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" index="0"]
+shape = SubResource("CircleShape2D_qrdom")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_jd3cm")
+autoplay = "default"
+frame_progress = 0.151791

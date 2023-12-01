@@ -65,10 +65,10 @@ const PLANET_NAME_PARTS := [
 ]
 
 enum BIOMES {
-	FOREST = 1,
-	ICE = 2,
-	DESERT = 4,
-	WATER_WORLD = 8
+	FOREST = 0,
+	ICE = 1,
+	DESERT = 2,
+	WATER_WORLD = 3
 }
 
 const BIOME_NAMES := {
@@ -206,7 +206,7 @@ static func update_planet_resources(planet_data) -> void:
 	
 	Stats.save_data.run_data.government_factions[planet_data.owner].military_unit_baseline += get_digits(planet_data.score)
 	
-	print("score ", planet_data.name, ": ", planet_data.score)
+	#print("score ", planet_data.name, ": ", planet_data.score)
 
 static func get_food_gain(planet_data) -> int:
 	var biome_food_score = BIOME_FOOD_SCORE[planet_data.biome]

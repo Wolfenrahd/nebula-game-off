@@ -7,10 +7,10 @@ var stats = Stats
 
 
 @onready var camera_follow = $camera_follow
-@onready var sprite_2d = $Sprite2D
+#@onready var sprite_2d = $Sprite2D
 
 
-@export var forward_acceleration = 5
+@export var forward_acceleration = 10
 @export var max_forward_velocity = 1000
 @export var rotation_speed = 150
 @export var friction = 1
@@ -24,11 +24,18 @@ func _ready():
 #	Stats.no_health.connect(die)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("land") and $InteractArea.get_overlapping_areas().size() > 0:
-		stats.save_data.run_data.space_location = position
-		get_tree().change_scene_to_file("res://levels/glacius_prime.tscn")
-#func _process(delta):
-#	print((position/314)+Vector2(4,21))
+	if event.is_action_pressed("action") and $InteractArea.get_overlapping_areas().size() > 0:
+		var location = $InteractArea.get_overlapping_areas()[0]
+		if location is Planet:
+			stats.save_data.run_data.current_planet = location.data
+			stats.save_data.run_data.space_location = position
+			stats.save_data.run_data.current_location = "res://levels/world.tscn"
+			SaveAndLoad.update_save_data()
+			#print($InteractArea.get_overlapping_areas()[0].data)
+			#print("***********")
+			#var current_planet_index = stats.current_planet.planet_index
+			#print(stats.save_data["run_data"]["zones"][current_planet_index.y][current_planet_index.x]["planets"][current_planet_index.z])
+			get_tree().change_scene_to_file(stats.save_data.run_data.current_location)
 
 func _physics_process(delta):
 	state.call(delta)
@@ -60,7 +67,7 @@ func is_rotating(input_axis):
 	return input_axis != 0
 
 func apply_acceleration(delta, input_vector):
-	print(input_vector)
+	#print(input_vector)
 	velocity += input_vector.rotated(rotation) * forward_acceleration
 	velocity = velocity.limit_length(max_forward_velocity)
 

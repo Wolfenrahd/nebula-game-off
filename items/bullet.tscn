@@ -56,8 +56,8 @@ _data = {
 "fire": SubResource("Animation_dfsal")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tc0dy"]
-size = Vector2(3, 1)
+[sub_resource type="CircleShape2D" id="CircleShape2D_wivxp"]
+radius = 1.0
 
 [node name="bullet" instance=ExtResource("1_sy8xy")]
 script = ExtResource("2_y0qoi")
@@ -70,13 +70,13 @@ texture = ExtResource("3_i1sy2")
 hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
-autoplay = "fire"
 libraries = {
 "": SubResource("AnimationLibrary_ir0h7")
 }
+autoplay = "fire"
 
 [node name="hitbox" parent="." index="3"]
 collision_mask = 35
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" index="0"]
-shape = SubResource("RectangleShape2D_tc0dy")
+shape = SubResource("CircleShape2D_wivxp")

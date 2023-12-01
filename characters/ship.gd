@@ -24,6 +24,7 @@ func fire_bullet():
 			bullet.speed = bullet_speed
 			bullet.scale = bullet_scale
 			bullet.rotation = rotation
+		Sounds.play_sfx("laser")
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

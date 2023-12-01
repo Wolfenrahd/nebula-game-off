@@ -5,43 +5,37 @@
 [ext_resource type="PackedScene" uid="uid://cbs0u0ietip53" path="res://player/player_ship.tscn" id="2_en7bj"]
 [ext_resource type="Theme" uid="uid://bhxfftbxevyph" path="res://themes/space_theme.tres" id="2_wrqy0"]
 [ext_resource type="PackedScene" uid="uid://h06c1d8e3omh" path="res://ui/planet_info.tscn" id="3_eqbis"]
-[ext_resource type="PackedScene" uid="uid://bmni55hjwmmau" path="res://characters/ship_ai.tscn" id="5_0r0tx"]
+[ext_resource type="PackedScene" uid="uid://djf8xnljbt4pj" path="res://ui/pause_menu.tscn" id="4_k0dxn"]
 [ext_resource type="PackedScene" uid="uid://c74l5yor8r0so" path="res://locations/sun.tscn" id="8_s3yr6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_044h5"]
 font_size = 32
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jxf22"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(2880, 1620, 1)
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = -5.0
 initial_velocity_max = 5.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lfgev"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(2880, 1620, 1)
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = -10.0
 initial_velocity_max = 10.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 scale_min = 3.0
 scale_max = 3.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_42qy8"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(2880, 1620, 1)
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = -20.0
 initial_velocity_max = 20.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 scale_min = 3.0
 scale_max = 3.0
 
@@ -50,7 +44,6 @@ radius = 2000.0
 
 [node name="space" type="Node2D"]
 script = ExtResource("1_yt2io")
-world_radius = 5000
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -64,7 +57,7 @@ offset_right = 31.5
 offset_bottom = 100.0
 grow_horizontal = 2
 text = "M - Map
-F - Land"
+E - Land"
 label_settings = SubResource("LabelSettings_044h5")
 
 [node name="GenerationMessage" type="ColorRect" parent="CanvasLayer"]
@@ -137,6 +130,17 @@ offset_right = 96.0
 offset_bottom = 214.0
 theme = ExtResource("2_wrqy0")
 
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("4_k0dxn")]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -711.0
+offset_top = 0.0
+offset_right = 711.0
+offset_bottom = 375.0
+grow_horizontal = 2
+
 [node name="main_cam" type="Camera2D" parent="."]
 position = Vector2(160, 90)
 zoom = Vector2(0.5, 0.5)
@@ -153,6 +157,7 @@ offset_right = 2184.0
 offset_bottom = 1310.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 1
 color = Color(0, 0, 0, 1)
 
 [node name="background_stars" type="Node2D" parent="main_cam"]
@@ -197,24 +202,10 @@ default_color = Color(1, 1, 1, 0.196078)
 [node name="player_ship" parent="Characters" instance=ExtResource("2_en7bj")]
 position = Vector2(-568, 24)
 
-[node name="ShipAI" parent="." instance=ExtResource("5_0r0tx")]
-position = Vector2(-792, 496)
-
-[node name="ShipAI2" parent="." instance=ExtResource("5_0r0tx")]
-position = Vector2(-664, 272)
-
-[node name="ShipAI3" parent="." instance=ExtResource("5_0r0tx")]
-modulate = Color(1, 0, 0.133333, 1)
-position = Vector2(-632, 544)
-
-[node name="ShipAI4" parent="." instance=ExtResource("5_0r0tx")]
-modulate = Color(1, 0, 0.133333, 1)
-position = Vector2(-816, 368)
-
 [node name="TickTimer" type="Timer" parent="."]
 
 [connection signal="pressed" from="CanvasLayer/StarMap/PanelContainer/VBoxContainer/Travel" to="." method="_on_travel_pressed"]
-[connection signal="timeout" from="main_cam/Timer" to="main_cam" method="_on_timer_timeout" flags=18]
+[connection signal="timeout" from="main_cam/Timer" to="main_cam" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Border" to="." method="_on_border_body_entered"]
 [connection signal="body_exited" from="Border" to="." method="_on_border_body_exited"]
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]

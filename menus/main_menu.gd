@@ -14,8 +14,8 @@ var save_and_load = SaveAndLoad
 var old_text = ""
 
 var save_select_board = "res://save_and_load/save_select_screen.tscn"
-#var game_board = "res://levels/glacius_prime.tscn"
-var game_board = "res://levels/space.tscn"
+var game_board = "res://levels/world.tscn"
+#var game_board = "res://levels/space.tscn"
 var settings_board = "res://menus/settings_menu.tscn"
 
 func _ready():
@@ -28,10 +28,10 @@ func _ready():
 	else:
 		continue_button.visible = false
 		space_test_button.visible = false
-	print(stats.save_data)
+	#print(stats.save_data)
 
 func _on_continue_buton_pressed():
-	get_tree().change_scene_to_file(game_board)
+	get_tree().change_scene_to_file(stats.save_data.run_data.current_location)
 
 func _on_new_game_button_pressed():
 	if seed_edit.text:
@@ -44,8 +44,9 @@ func _on_new_game_button_pressed():
 	stats.rng.seed = stats.save_data.seed
 	stats.reset_run()
 	stats.save_data.current_game = true
+	stats.save_data.run_data.current_planet = stats.save_data.run_data.zones[0][0]["planets"][0]
 	save_and_load.update_save_data()
-	get_tree().change_scene_to_file(game_board)
+	get_tree().change_scene_to_file(stats.save_data.run_data.current_location)
 
 func _on_sounds_button_pressed():
 	volume_menu.visible = true
@@ -62,6 +63,7 @@ func _on_seed_edit_text_changed(new_text):
 
 func _on_seed_button_pressed():
 	seed_edit.visible = true
+	seed_edit.grab_focus()
 
 func _on_back_button_pressed():
 	get_tree().change_scene_to_file(save_select_board)

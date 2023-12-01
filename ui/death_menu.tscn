@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4x1gpv5mw085"]
+
+[ext_resource type="Theme" uid="uid://cymbtmi8h011n" path="res://themes/menu_theme.tres" id="1_0h24y"]
+[ext_resource type="Script" path="res://ui/death_menu.gd" id="1_y1d6y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87c1d"]
+content_margin_left = 50.0
+content_margin_top = 50.0
+content_margin_right = 50.0
+content_margin_bottom = 50.0
+bg_color = Color(0.164706, 0.164706, 0.164706, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lcfa0"]
+font_size = 256
+
+[node name="DeathMenu" type="HBoxContainer"]
+process_mode = 3
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 465.0
+offset_bottom = 317.0
+script = ExtResource("1_y1d6y")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("1_0h24y")
+theme_override_styles/panel = SubResource("StyleBoxFlat_87c1d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="ReloadSave" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Reload Save"
+
+[node name="MainMenu" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="Timer" type="Timer" parent="PanelContainer"]
+one_shot = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "YOU DIED"
+label_settings = SubResource("LabelSettings_lcfa0")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/ReloadSave" to="." method="_on_reload_save_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="timeout" from="PanelContainer/Timer" to="." method="_on_timer_timeout"]

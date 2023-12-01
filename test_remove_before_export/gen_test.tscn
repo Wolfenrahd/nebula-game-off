@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://qdxuk7vp74f0"]
+
+[ext_resource type="Script" path="res://test_remove_before_export/planet_generation.gd" id="1_kbxex"]
+
+[node name="gen_test" type="Node2D"]
+script = ExtResource("1_kbxex")

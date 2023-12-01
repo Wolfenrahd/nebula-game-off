@@ -33,14 +33,17 @@ region_enabled = true
 region_rect = Rect2(0, 0, 512, 512)
 
 [node name="Clouds" type="Sprite2D" parent="Surface"]
+modulate = Color(1, 1, 1, 0.682353)
 texture = ExtResource("3_a7tm0")
 region_enabled = true
 region_rect = Rect2(0, 0, 512, 512)
 
 [node name="CollisionShape256" type="CollisionShape2D" parent="."]
+z_index = 10
 shape = SubResource("CircleShape2D_le3d1")
 
 [node name="CollisionShape512" type="CollisionShape2D" parent="."]
+z_index = 10
 shape = SubResource("CircleShape2D_le3d1")
 disabled = true
 
